@@ -66,7 +66,8 @@ public class login {
 
                     try{
                         BufferedWriter bw=new BufferedWriter(new FileWriter("user.txt",true));
-                        bw.write(reguser+","+regpass);
+                        int hashedPass=regpass.hashCode();
+                        bw.write(reguser+","+hashedPass);
                         bw.newLine();
                         bw.close();
                         System.out.println("Registration Successfull");
@@ -86,6 +87,7 @@ public class login {
 
                     System.out.print("Enter Password: ");
                     String pass = sc.nextLine();
+                    int hashedinput=pass.hashCode();
 
                     if(user.isEmpty()){
                         System.out.println("Username Cannot be Empty");
@@ -98,7 +100,7 @@ public class login {
                         String line;
                         while((line=br.readLine())!=null){
                             String[] data =line.split(",");
-                            if(data[0].equals(user)&&data[1].equals(pass)){
+                            if(data[0].equals(user)&&Integer.parseInt(data[1])==hashedinput){
                                 found=true;
                                 break;
                             }
